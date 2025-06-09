@@ -1,54 +1,48 @@
-import { ArrowLeft, Heart, Share, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import Image from "next/image"
-import { fetchListings } from "@/lib/actions/listing.actions"
-import { IListing } from "@/lib/types/data_model_types"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import Image from "next/image"
+import { fetchListingById } from "@/lib/actions/listing.actions"
+import { Badge } from "@/components/ui/badge"
 
-interface PropertyDetailsProps {
-    propertyId: string
-}
+const PropertyDetailPage = async (props: {
+    params: Promise<{ id: string }>
+}) => {
 
-export async function PropertyDetails({ propertyId }: PropertyDetailsProps) {
+    const params = await props.params
+    const listing = await fetchListingById(params.id)
 
-    const listing: IListing = await fetchListings({});
-
-
-    if (!listing) {
-        return (
-            <div className="text-center py-20">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Property not found</h2>
-                <Link href="/">
-                    <Button>Return to homepage</Button>
-                </Link>
-            </div>
-        )
-    }
+    console.log({ listing })
 
     return (
-        <div className="container mx-auto p-4">
-            <Card className="mb-6">
-                <CardHeader>
-                    <CardTitle>{listing.name || 'Untitled Listing'}</CardTitle>
-                    {listing.summary && <CardDescription>{listing.summary}</CardDescription>}
-                </CardHeader>
-                {listing.images?.picture_url && (
-                    <div className="relative h-64 w-full">
+        <div className="custom-container my-8">
+            <div className="mb-6">
+                <div className="grid grid-cols-2 gap-6 mb-12">
+                    <div className="grow">
+                        <h1 className="text-3xl font-bold mb-4">{listing.name || 'Untitled Listing'}</h1>
+                        {listing.summary && <p>{listing.summary}</p>}
+                    </div>
+                    <div className="relative w-full aspect-video rounded-lg overflow-hidden">
                         <Image
-                            src={listing.images.picture_url}
+                            src={listing.images.picture_url || "/images/placeholder.svg"}
                             alt={listing.name || 'Listing image'}
                             layout="fill"
                             objectFit="cover"
-                            className="rounded-b-2xl"
+                            className=""
+                            unoptimized
                         />
                     </div>
-                )}
-                <CardContent>
+                </div>
+                <div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <section>
+                            <h3 className="text-lg font-semibold">Description</h3>
                             {listing.description && <p className="mb-4">{listing.description}</p>}
                             {listing.space && (
                                 <>
@@ -84,7 +78,7 @@ export async function PropertyDetails({ propertyId }: PropertyDetailsProps) {
                         <section className="mt-6">
                             <h3 className="text-lg font-semibold mb-2">Amenities</h3>
                             <div className="flex flex-wrap gap-2">
-                                {listing.amenities.map((amenity) => (
+                                {listing.amenities.map((amenity: string) => (
                                     <Badge key={amenity}>{amenity}</Badge>
                                 ))}
                             </div>
@@ -120,8 +114,10 @@ export async function PropertyDetails({ propertyId }: PropertyDetailsProps) {
                             </TabsContent>
                         )}
                     </Tabs>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </div>
     )
 }
+
+export default PropertyDetailPage

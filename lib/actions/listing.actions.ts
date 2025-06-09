@@ -21,3 +21,15 @@ export async function fetchListings({
         throw new Error(error?.message || "Failed to fetch movies")
     }
 }
+
+// GET LISTING BY ID
+export async function fetchListingById(id: string) {
+    try {
+        await connectDB()
+        const listing = await Listing.findById(id)
+        return JSON.parse(JSON.stringify(listing))
+    } catch (error: any) {
+        console.error(error)
+        throw new Error(error?.message || "Failed to fetch movies")
+    }
+}
