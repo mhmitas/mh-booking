@@ -14,7 +14,7 @@ export default function Navbar() {
             <div className="flex custom-container mx-auto items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
                 <div className="flex items-center">
                     <Link href="/" className="text-xl font-bold">
-                        MH Booking
+                        MH Adventures
                     </Link>
                 </div>
 
