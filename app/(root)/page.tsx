@@ -1,9 +1,12 @@
 import ServiceCard from "@/components/shared/service-card"
 import { Button } from "@/components/ui/button"
+import { test } from "@/lib/actions/test.actions"
 import Image from "next/image"
 import React from 'react'
 
 const Page = async () => {
+
+    test()
 
     return (
         <main className="mb-8 flex-1">

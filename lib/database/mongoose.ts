@@ -20,7 +20,7 @@ export const connectDB = async () => {
     if (cached.conn) return cached.conn
     cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
         bufferCommands: false,
-        dbName: 'booking_database',
+        dbName: 'blackberry_mountain',
     })
 
     cached.conn = await cached.promise
