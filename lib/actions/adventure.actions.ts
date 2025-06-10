@@ -1,7 +1,7 @@
 "use server"
 
 import { Adventure } from "../database/models/adventure.model"
-import { Category } from "../database/models/category.model"
+import { Category, Type } from "../database/models/category.model"
 import { connectDB } from "../database/mongoose"
 import { IType } from "../types/data_model_types"
 
@@ -28,26 +28,80 @@ export async function fetchCategoryBySlug({ slug }: { slug: string }) {
 
 }
 
-export async function fetchSubCategoriesByCategorySlug({ slug }: { slug: string }): Promise<{ _id: string, types: IType[] }> {
+type returnProps = {
+    _id: string,
+    type: IType
+}
+
+export async function fetchTypesByCategorySlug({ slug }: { slug: string }): Promise<returnProps[]> {
     try {
         await connectDB()
 
         const category = await Category.aggregate([
-            { $match: { slug: "adventure" } },
+            { $match: { slug } },
             { $project: { _id: 1 } },
             {
                 $lookup: {
                     from: "types",
                     localField: "_id",
                     foreignField: "category",
-                    as: "types"
+                    as: "type"
+                }
+            },
+            { $unwind: "$type" },
+            {
+                $project: {
+                    "type._id": 1,
+                    "type.name": 1,
+                    "type.slug": 1,
+                    "type.thumbnail": 1
                 }
             }
         ])
 
-        return JSON.parse(JSON.stringify(category[0]))
-
+        return JSON.parse(JSON.stringify(category))
     } catch (error: any) {
         throw new Error(error.message || "Failed to fetch programs by category")
+    }
+}
+
+export async function fetchTypeBySlug({ slug }: { slug: string }) {
+    try {
+        await connectDB()
+        const type = await Type.findOne({ slug }).select("name slug thumbnail intro")
+        return JSON.parse(JSON.stringify(type))
+    } catch (error: any) {
+        throw new Error(error.message || "Failed to fetch type by slug")
+    }
+
+}
+
+export async function fetchAdventuresByTypeSlug({ params }: any) {
+    try {
+        await connectDB()
+        const adventures = await Type.aggregate([
+            { $match: { slug: "hiking" } },
+            { $project: { _id: 1 } },
+            {
+                $lookup: {
+                    from: "adventures",
+                    localField: "_id",
+                    foreignField: "type",
+                    as: "adventure"
+                }
+            },
+            { $unwind: "$adventure" },
+            {
+                $project: {
+                    "adventure._id": 1,
+                    "adventure.title": 1,
+                    "adventure.slug": 1,
+                    "adventure.description": 1,
+                }
+            }
+        ])
+        return JSON.parse(JSON.stringify(adventures))
+    } catch (error: any) {
+        throw new Error(error.message || "Failed to fetch adventures by type slug")
     }
 }

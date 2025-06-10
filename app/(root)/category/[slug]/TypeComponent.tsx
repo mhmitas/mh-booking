@@ -1,19 +1,31 @@
 import { IType } from "@/lib/types/data_model_types"
+import { cn } from "@/lib/utils"
+import Image from "next/image"
+import Link from "next/link"
 import React from 'react'
 
 const TypeComponent = ({ type }: { type: IType }) => {
     return (
-        <section className="bg-card py-8">
-            <div className="custom-container !max-w-7xl grid grid-cols-2 gap-8">
-                <div>
-                    <h2 className="text-3xl font-bold mb-4">{type.name}</h2>
-                    <p className="text-muted-foreground line-clamp-8">{type.intro} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora facilis ex facere commodi quo fugiat quasi ducimus sapiente cupiditate, delectus, ea sunt magni illo. Nihil qui repellendus quia commodi amet.</p>
+        <Link href={`/type/${type.slug}`} className="group">
+            <div className="relative">
+                <div className="absolute bottom-6 left-6 z-10 bg-white text-black p-4 w-1/2 rounded-xs">
+                    <h2 className="text-lg font-semibold">{type.name}</h2>
+                    <button className="">Read More</button>
                 </div>
-                <div className="aspect-video overflow-hidden rounded">
-                    <img className="w-full object-cover" src={type.thumbnail || "/images/placeholder.svg"} alt={type.name} />
+                <div className="w-full aspect-[2/3] relative overflow-hidden rounded">
+                    <Image
+                        src={type.thumbnail || "/images/poster-placeholder.svg"}
+                        alt={"Poster isn't found"}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 200px"
+                        className="object-cover transition duration-200 w-full rounded scale-105 group-hover:scale-100"
+                        placeholder="blur"
+                        blurDataURL="/images/poster-placeholder.svg"
+                        unoptimized
+                    />
                 </div>
             </div>
-        </section>
+        </Link>
     )
 }
 

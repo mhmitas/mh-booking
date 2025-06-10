@@ -21,7 +21,7 @@ export interface IType {
 }
 
 export interface IAdventure {
-    _id?: Types.ObjectId;
+    _id: Types.ObjectId;
     type: Types.ObjectId; // ObjectId as string
     category: Types.ObjectId; // ObjectId as string
     slug: string;
