@@ -1,10 +1,14 @@
 import ServiceCard from "@/components/shared/service-card"
 import { Button } from "@/components/ui/button"
+import { fetchCategories } from "@/lib/actions/adventure.actions"
 import { test } from "@/lib/actions/test.actions"
+import { ICategory } from "@/lib/database/models/category.model"
 import Image from "next/image"
 import React from 'react'
 
 const Page = async () => {
+
+    const categories = await fetchCategories()
 
     test()
 
@@ -56,48 +60,12 @@ const Page = async () => {
 
                     {/* Service Categories */}
                     <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        <ServiceCard
-                            id="stay"
-                            title="STAY"
-                            description="Luxurious accommodations ranging from boutique hotels to private villas, ensuring comfort and relaxation."
-                            imageSrc="/images/placeholder.svg"
-                            imageAlt="Luxury accommodation"
-                        />
-                        <ServiceCard
-                            id="adventure"
-                            title="ADVENTURE"
-                            description="Thrilling experiences from hiking and water sports to safari tours and extreme activities for the adrenaline seekers."
-                            imageSrc="/images/placeholder.svg"
-                            imageAlt="Adventure activities"
-                        />
-                        <ServiceCard
-                            id="culinary"
-                            title="CULINARY"
-                            description="Gastronomic journeys featuring local cuisines, cooking classes, wine tastings, and exclusive dining experiences."
-                            imageSrc="/images/placeholder.svg"
-                            imageAlt="Culinary experience"
-                        />
-                        <ServiceCard
-                            id="wellness"
-                            title="WELLNESS"
-                            description="Rejuvenating spa treatments, yoga retreats, meditation sessions, and holistic health programs."
-                            imageSrc="/images/placeholder.svg"
-                            imageAlt="Wellness retreat"
-                        />
-                        <ServiceCard
-                            id="holidays"
-                            title="HOLIDAYS"
-                            description="Special holiday packages for Christmas, New Year, Valentine's Day, and other festive occasions."
-                            imageSrc="/images/placeholder.svg"
-                            imageAlt="Holiday celebration"
-                        />
-                        <ServiceCard
-                            id="seasons"
-                            title="SEASONS"
-                            description="Seasonal experiences like cherry blossom tours in spring, beach getaways in summer, and ski trips in winter."
-                            imageSrc="/images/placeholder.svg"
-                            imageAlt="Seasonal activity"
-                        />
+                        {categories.map((category: ICategory) => (
+                            <ServiceCard
+                                key={category._id.toString()}
+                                category={category}
+                            />
+                        ))}
                     </div>
                 </div>
             </section>

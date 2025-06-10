@@ -1,6 +1,7 @@
+import { IAdventure } from "@/lib/types/data_model_types";
 import { models, Schema, model } from "mongoose";
 
-const AdventureSchema = new Schema({
+const AdventureSchema = new Schema<IAdventure>({
     type: {
         type: Schema.Types.ObjectId,
         ref: 'Type',
@@ -56,7 +57,7 @@ const AdventureSchema = new Schema({
         type: String, // optional e.g., 'English'
         default: 'English'
     },
-    moreInfo: {
+    info: {
         type: String
     }
 }, { timestamps: true });

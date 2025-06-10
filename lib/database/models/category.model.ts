@@ -1,10 +1,9 @@
 // Mongoose schema for categories and types (category.js)
-import mongoose, { models } from 'mongoose';
-
-const { Schema, model } = mongoose;
+import { ICategory, IType } from "@/lib/types/data_model_types";
+import { models, Schema, model } from 'mongoose';
 
 // Category schema
-const CategorySchema = new Schema({
+const CategorySchema = new Schema<ICategory>({
     name: {
         type: String,
         required: true,
@@ -19,7 +18,7 @@ const CategorySchema = new Schema({
 });
 
 // Type schema (e.g., 'hiking', 'biking', etc.)
-const TypeSchema = new Schema({
+const TypeSchema = new Schema<IType>({
     name: {
         type: String,
         required: true,
