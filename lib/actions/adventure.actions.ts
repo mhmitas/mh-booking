@@ -105,3 +105,13 @@ export async function fetchAdventuresByTypeSlug({ params }: any) {
         throw new Error(error.message || "Failed to fetch adventures by type slug")
     }
 }
+
+export async function fetchAdventureBySlug({ slug }: { slug: string }) {
+    try {
+        await connectDB()
+        const adventure = await Adventure.findOne({ slug })
+        return adventure
+    } catch (error: any) {
+        throw new Error(error.message || "Failed to fetch adventure by slug")
+    }
+}

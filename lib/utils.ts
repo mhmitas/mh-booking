@@ -32,3 +32,32 @@ export function calculateAverageRating(scores: ReviewScores): number {
 
   return parseFloat(averageOutOf5.toFixed(2)); // rounded to 2 decimal places
 }
+
+
+// lib/markdown.js
+import { marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
+
+interface MarkdownToHtmlOptions {
+  gfm?: boolean;
+  breaks?: boolean;
+  tables?: boolean;
+}
+
+export async function markdownToHtml(markdown: string): Promise<string> {
+  // Configure marked for GFM (tables, task lists, etc.)
+  const options: MarkdownToHtmlOptions = {
+    gfm: true,
+    breaks: true, // Optional: Convert newlines to <br>
+    tables: true
+  };
+  marked.setOptions(options);
+
+  // Convert Markdown to HTML
+  const html: string = await marked(markdown);
+
+  // Sanitize HTML to prevent XSS
+  const sanitizedHtml: string = DOMPurify.sanitize(html);
+
+  return sanitizedHtml;
+}

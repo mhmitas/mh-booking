@@ -30,7 +30,7 @@ const TypesPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
                             <div className="pt-6 mt-auto">
                                 <Link
-                                    href={`/adventure/${item.adventure.slug}`} className="">
+                                    href={`/experience-details/${item.adventure.slug}`} className="">
                                     <button
                                         className="inline-flex items-center gap-2 text-foreground font-medium text-sm sm:text-base hover:gap-3 transition-all duration-300 group-hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary text-start cursor-pointer"
                                         aria-label={`Explore ${item.adventure.title}`}

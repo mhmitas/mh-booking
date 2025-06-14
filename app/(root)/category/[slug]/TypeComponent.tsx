@@ -1,5 +1,4 @@
 import { IType } from "@/lib/types/data_model_types"
-import { cn } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
 import React from 'react'
