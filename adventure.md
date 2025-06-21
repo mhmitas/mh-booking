@@ -1,42 +1,7 @@
-"use server";
 
-import { Experience } from "../database/models/adventure.model";
-import { Type } from "../database/models/category.model";
-import { connectDB } from "../database/mongoose";
-
-export async function test() {
-  // run()
-}
-
-async function run() {
-  try {
-    await connectDB();
-
-    const doc = {
-      type: "6847049323ce54b476d163a6",
-      category: "6846f59fd1b150fa3cf984be",
-      slug: "half-day-guided-hike",
-      title: "Half-Day Guided Hike",
-      description:
-        "This comprehensive half-day guided hike immerses guests in the full spectrum of Blackberry Mountain’s natural beauty. The program combines invigorating climbs to scenic ridge overlooks, tranquil walks through lush hollows, and interpretive stops to discover the mountain’s rich biodiversity and enchanting art installations. Led by knowledgeable guides, the experience is designed for a variety of fitness levels, with opportunities for both challenge and reflection.",
-      tags: ["outdoors", "nature", "sunset", "photography", "beginner"],
-      images: ["/images/hike1.jpg", "/images/hike2.jpg"],
-      price: {
-        amount: 45,
-        currency: "USD",
-        unit: "per person",
-      },
-      duration: "1–2 hours",
-      availableDates: ["2025-06-12", "2025-06-14", "2025-06-15"],
-      location: {
-        name: "Kebler Ridge Trail",
-        region: "West Mountain",
-        coordinates: [-105.1234, 38.5678],
-      },
-      info: `
                 ## Half-Day Guided Hike Program at Blackberry Mountain
 
-                **Program Title:**
+                **Program Title:**  
                 Blackberry Mountain Half-Day Explorer: Ridge Tops, Hollows & Hidden Art
 
                 ---
@@ -45,8 +10,8 @@ async function run() {
 
                 This comprehensive half-day guided hike immerses guests in the full spectrum of Blackberry Mountain’s natural beauty. The program combines invigorating climbs to scenic ridge overlooks, tranquil walks through lush hollows, and interpretive stops to discover the mountain’s rich biodiversity and enchanting art installations. Led by knowledgeable guides, the experience is designed for a variety of fitness levels, with opportunities for both challenge and reflection.
 
-                **Duration:** 4–5 hours
-                **Distance:** 4–6 miles (customizable for group ability)
+                **Duration:** 4–5 hours  
+                **Distance:** 4–6 miles (customizable for group ability)  
                 **Difficulty:** Moderate (options to adjust for group needs)
 
                 ---
@@ -111,7 +76,7 @@ async function run() {
 
                 ---
 
-                **Note:**
+                **Note:**  
                 This program is designed to maximize guest enjoyment and safety, with flexibility for weather, group size, and fitness levels. Alternative routes or activities may be offered in case of inclement conditions.
 
                 ---
@@ -132,12 +97,4 @@ async function run() {
                 ---
 
                 This half-day guided hike provides a rich, engaging, and safe exploration of Blackberry Mountain’s most captivating features, ensuring guests leave with lasting memories and a deeper appreciation for the natural world.
-            `,
-    };
-
-    const result = await Experience.create(doc);
-    console.log(result);
-  } catch (error: any) {
-    console.error(error);
-  }
-}
+            

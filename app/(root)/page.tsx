@@ -2,7 +2,7 @@ import ServiceCard from "@/components/shared/service-card"
 import { Button } from "@/components/ui/button"
 import { fetchCategories } from "@/lib/actions/adventure.actions"
 import { test } from "@/lib/actions/test.actions"
-import { ICategory } from "@/lib/database/models/category.model"
+import { ICategory } from "@/lib/types/data_model_types"
 import Image from "next/image"
 import React from 'react'
 
