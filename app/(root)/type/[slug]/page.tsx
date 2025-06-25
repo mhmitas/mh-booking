@@ -15,6 +15,7 @@ const TypesPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
       <div className="custom-container space-y-10 grid grid-cols-3 gap-10">
         {experiences.map((item: { _id: string; experience: IExperience }) => (
           <div
+            key={item.experience._id.toString()}
             className={cn(
               "relative flex flex-col h-full rounded-lg border bg-card shadow-sm transition-all duration-300 hover:shadow-md"
             )}
