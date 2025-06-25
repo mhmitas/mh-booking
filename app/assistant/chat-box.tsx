@@ -36,8 +36,8 @@ const ChatBox = () => {
 
     try {
       const url = threadId
-        ? "http://localhost:5000/chat/" + threadId
-        : "http://localhost:5000/chat";
+        ? `${process.env.NEXT_PUBLIC_AGENT_API}/chat/${threadId}`
+        : `${process.env.NEXT_PUBLIC_AGENT_API}/chat`;
       const response = await fetch(url, {
         cache: "no-cache",
         method: "POST",
