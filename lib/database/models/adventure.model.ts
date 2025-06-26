@@ -29,13 +29,12 @@ const ExperienceSchema = new Schema<IExperience>(
     tags: [String],
     images: [String],
     price: {
-      amount: { type: Number, required: true },
+      amount: { type: Number },
       currency: { type: String, default: "USD" },
       unit: { type: String, default: "per_person" },
     },
     duration: {
       type: String,
-      required: true,
     },
     availableDates: [String], // ISO Date strings
     timeSlots: [String], // e.g., '08:00', '14:00'
@@ -60,6 +59,7 @@ const ExperienceSchema = new Schema<IExperience>(
     },
     info: {
       type: String, // all the information as a comperehensive guide
+      required: true,
     },
   },
   { timestamps: true }
