@@ -25,7 +25,7 @@ const ChatBox = () => {
 
   React.useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isLoading]);
 
   const handleSend = async () => {
     if (!prompt.trim()) return;
@@ -59,6 +59,7 @@ const ChatBox = () => {
       ]);
     } catch (error) {
       console.error("Error sending message:", error);
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -89,7 +90,7 @@ const ChatBox = () => {
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto thin-scrollbar">
         <div className="p-4 space-y-6 min-h-full">
-          {messages.length === 0 ? (
+          {messages.length === 0 && !isLoading ? (
             <div className="flex items-center justify-center h-full min-h-[400px]">
               <div className="text-center space-y-4">
                 <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
@@ -143,6 +144,7 @@ const ChatBox = () => {
                   </div>
                 </div>
               ))}
+              {isLoading && <BotThinking />}
               <div ref={messagesEndRef} />
             </>
           )}
@@ -218,3 +220,34 @@ const sampleQueries = [
     query: "How can I book a tour?",
   },
 ];
+
+function BotThinking() {
+  return (
+    <div className="flex items-center mt-4 animate-in fade-in duration-300">
+      <Bot className="w-6 h-6 text-primary mr-2 animate-pulse" />
+      <span className="text-sm text-muted-foreground">
+        Processing your request
+        <span className="animate-pulse">
+          <span
+            className="animate-bounce inline-block"
+            style={{ animationDelay: "0ms" }}
+          >
+            .
+          </span>
+          <span
+            className="animate-bounce inline-block"
+            style={{ animationDelay: "150ms" }}
+          >
+            .
+          </span>
+          <span
+            className="animate-bounce inline-block"
+            style={{ animationDelay: "300ms" }}
+          >
+            .
+          </span>
+        </span>
+      </span>
+    </div>
+  );
+}
