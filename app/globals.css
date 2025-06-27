@@ -46,57 +46,37 @@
 
 :root {
   --radius: 0.625rem;
-  /* Core Colors */
-  --background: oklch(0.996 0 0); /* Mountain mist white */
-  --foreground: oklch(0.25 0.015 255); /* Charcoal stone */
-
-  /* Cards & Surfaces */
-  --card: oklch(1 0 0); /* Pure white */
-  --card-foreground: oklch(0.25 0.015 255); /* Charcoal stone */
-  --popover: oklch(1 0 0); /* Pure white */
-  --popover-foreground: oklch(0.25 0.015 255); /* Charcoal stone */
-
-  /* Primary - Deep Forest Green (#1a4d3a) */
-  --primary: oklch(0.35 0.08 158); /* Deep cedar forest */
-  --primary-foreground: oklch(0.98 0 0); /* Off-white */
-
-  /* Secondary - Mountain Lake Blue (#2563eb) */
-  --secondary: oklch(0.55 0.22 264); /* Glacial lake blue */
-  --secondary-foreground: oklch(0.98 0 0); /* Off-white */
-
-  /* Accent - Cedar Warm (#a16207) */
-  --accent: oklch(0.55 0.15 65); /* Warm cedar wood */
-  --accent-foreground: oklch(0.98 0 0); /* Off-white */
-
-  /* Muted - Mountain Stone */
-  --muted: oklch(0.96 0.005 255); /* Light stone */
-  --muted-foreground: oklch(0.55 0.02 255); /* Medium stone */
-
-  /* Destructive - Sunset Red */
-  --destructive: oklch(0.65 0.25 25); /* Mountain sunset */
-  --destructive-foreground: oklch(0.98 0 0); /* Off-white */
-
-  /* Borders & Inputs */
-  --border: oklch(0.85 0.01 255); /* Light granite */
-  --input: oklch(0.85 0.01 255); /* Light granite */
-  --ring: oklch(0.35 0.08 158); /* Forest green focus */
-
-  /* Chart Colors - Natural Palette */
-  --chart-1: oklch(0.45 0.12 158); /* Forest green */
-  --chart-2: oklch(0.55 0.22 264); /* Lake blue */
-  --chart-3: oklch(0.55 0.15 65); /* Cedar warm */
-  --chart-4: oklch(0.65 0.18 45); /* Autumn orange */
-  --chart-5: oklch(0.7 0.25 285); /* Mountain wildflower */
-
-  /* Sidebar */
-  --sidebar: oklch(0.98 0 0); /* Light mist */
-  --sidebar-foreground: oklch(0.25 0.015 255); /* Charcoal */
-  --sidebar-primary: oklch(0.35 0.08 158); /* Forest green */
-  --sidebar-primary-foreground: oklch(0.98 0 0); /* Off-white */
-  --sidebar-accent: oklch(0.96 0.005 255); /* Light stone */
-  --sidebar-accent-foreground: oklch(0.25 0.015 255); /* Charcoal */
-  --sidebar-border: oklch(0.85 0.01 255); /* Light granite */
-  --sidebar-ring: oklch(0.35 0.08 158); /* Forest green */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
