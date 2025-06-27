@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, markdownToHtml } from "@/lib/utils";
-import { Send, Bot } from "lucide-react";
+import { Send, Bot, Plus } from "lucide-react";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 
@@ -73,48 +73,54 @@ const ChatBox = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-4xl mx-auto px-2 sm:px-4">
+    <div className="flex flex-col h-screen max-w-4xl mx-auto px-3 sm:px-4 lg:px-6">
       {/* Header */}
       <div className="flex-shrink-0 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="flex items-center justify-between p-2 sm:p-4">
+        <div className="flex items-center justify-between p-3 sm:p-4">
           <div className="flex items-center gap-2">
-            <Link href="/" className="text-lg font-semibold">
+            <Link
+              href="/"
+              className="text-base sm:text-lg font-semibold truncate"
+            >
               Blackberry Mountain
             </Link>
-            <span>/</span>
-            <Bot className="w-6 h-6 text-primary" />
+            <span className="hidden xs:inline">/</span>
+            <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
           </div>
         </div>
       </div>
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto thin-scrollbar">
-        <div className="p-2 sm:p-4 space-y-4 sm:space-y-6 min-h-full">
+        <div className="p-3 sm:p-4 lg:p-6 space-y-3 sm:space-y-4 lg:space-y-6 min-h-full">
           {messages.length === 0 && !isLoading ? (
-            <div className="flex items-center justify-center h-full min-h-[400px]">
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <Bot className="w-8 h-8 text-primary" />
+            <div className="flex items-center justify-center h-full min-h-[50vh] px-4">
+              <div className="text-center space-y-6 w-full">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                  <Bot className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                 </div>
-                <div className="space-y-2">
-                  <h2 className="text-xl font-semibold">
-                    Wellcome, How can help you?
+                <div className="space-y-3 max-w-md w-full mx-auto">
+                  <h2 className="text-lg sm:text-xl font-semibold">
+                    Welcome! How can I help you?
                   </h2>
-                  <p className="text-muted-foreground max-w-xs sm:max-w-sm mx-auto text-sm sm:text-base">
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
                     Ask me anything to get started! I can provide you
                     information on our services at Blackberry Mountain.
                   </p>
-                  <div className="flex flex-col mt-4 sm:mt-6 gap-2 sm:gap-3 justify-center items-center w-full max-w-xs sm:max-w-sm">
-                    {sampleQueries.map((query, index) => (
-                      <button
-                        key={index}
-                        className="px-3 py-2 rounded-lg bg-card hover:bg-muted text-xs sm:text-sm w-full text-center"
-                        onClick={() => setPrompt(query.query)}
-                      >
+                </div>
+                <div className="space-y-0 w-full max-w-2xl mx-auto mt-auto">
+                  {sampleQueries.map((query, index) => (
+                    <button
+                      key={index}
+                      className="w-full flex items-center justify-between px-4 py-2 text-left hover:bg-muted/30 transition-colors border-b border-border/20 group"
+                      onClick={() => setPrompt(query.query)}
+                    >
+                      <span className="text-sm sm:text-base text-foreground group-hover:text-foreground/80 transition-colors pr-4">
                         {query.title}
-                      </button>
-                    ))}
-                  </div>
+                      </span>
+                      <Plus className="w-5 h-5 text-primary flex-shrink-0 group-hover:text-primary/80 transition-colors" />
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -131,12 +137,12 @@ const ChatBox = () => {
                   {/* Message Content */}
                   <div
                     className={cn(
-                      "flex-1 max-w-[90%] sm:max-w-[80%] space-y-1"
+                      "flex-1 max-w-[95%] xs:max-w-[90%] sm:max-w-[85%] lg:max-w-[80%] space-y-1"
                     )}
                   >
                     <div
                       className={cn(
-                        "rounded-2xl px-3 sm:px-4 py-2 sm:py-3 break-words w-max max-w-full prose dark:prose-invert text-sm sm:text-base",
+                        "rounded-2xl px-3 sm:px-4 py-2.5 sm:py-3 break-words w-max max-w-full prose dark:prose-invert text-sm sm:text-base prose-sm sm:prose-base",
                         message.role === "human" &&
                           "bg-muted text-foreground ml-auto"
                       )}
@@ -157,19 +163,19 @@ const ChatBox = () => {
 
       {/* Input Area */}
       <div className="flex-shrink-0 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="p-2 sm:p-4">
+        <div className="p-3 sm:p-4 lg:p-6">
           <div className="flex gap-2 sm:gap-3 items-end">
             <div className="flex-1 relative">
               <Textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder="Type your message... (Press Enter to send, Shift+Enter for new line)"
-                className="resize-none min-h-[44px] sm:min-h-[52px] max-h-24 sm:max-h-32 pr-12 sm:pr-16 text-sm border-2 focus:border-primary/50"
+                placeholder="Type your message..."
+                className="resize-none min-h-[48px] sm:min-h-[52px] max-h-24 sm:max-h-32 pr-10 sm:pr-16 text-sm sm:text-base border-2 focus:border-primary/50 rounded-xl"
                 disabled={isLoading}
               />
               {prompt.length > 0 && (
-                <div className="absolute right-2 sm:right-3 bottom-2 sm:bottom-3 text-xs text-muted-foreground bg-background px-1 rounded">
+                <div className="absolute right-2 sm:right-3 bottom-2 sm:bottom-3 text-xs text-muted-foreground bg-background px-1.5 py-0.5 rounded">
                   {prompt.length}
                 </div>
               )}
@@ -178,7 +184,7 @@ const ChatBox = () => {
               onClick={handleSend}
               disabled={!prompt.trim() || isLoading}
               size="default"
-              className="h-[44px] sm:h-[52px] px-3 sm:px-4 rounded-xl"
+              className="h-[48px] sm:h-[52px] w-[48px] sm:w-auto sm:px-4 rounded-xl flex-shrink-0"
             >
               {isLoading ? (
                 <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -187,6 +193,9 @@ const ChatBox = () => {
               )}
             </Button>
           </div>
+          <p className="text-xs text-muted-foreground mt-2 text-center sm:text-left">
+            Press Enter to send, Shift+Enter for new line
+          </p>
         </div>
       </div>
     </div>
@@ -227,9 +236,9 @@ const sampleQueries = [
 
 function BotThinking() {
   return (
-    <div className="flex items-center mt-4 animate-in fade-in duration-300">
-      <Bot className="w-6 h-6 text-primary mr-2 animate-pulse" />
-      <span className="text-sm text-muted-foreground">
+    <div className="flex items-center mt-3 sm:mt-4 animate-in fade-in duration-300 px-1">
+      <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-2 animate-pulse flex-shrink-0" />
+      <span className="text-xs sm:text-sm text-muted-foreground">
         Processing your request
         <span className="animate-pulse">
           <span
