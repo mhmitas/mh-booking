@@ -72,7 +72,7 @@ export async function fetchTypeBySlug({ slug }: { slug: string }) {
   try {
     await connectDB();
     const type = await Type.findOne({ slug }).select(
-      "name slug thumbnail intro"
+      "name slug thumbnail description"
     );
     return JSON.parse(JSON.stringify(type));
   } catch (error: any) {
