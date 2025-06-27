@@ -22,7 +22,7 @@ const TypesPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           >
             <div className="flex flex-col justify-between h-full p-5 sm:p-6 lg:p-8">
               <div className="space-y-4">
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
                   {item.experience.title}
                 </h3>
 
@@ -31,16 +31,16 @@ const TypesPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
                 </p>
               </div>
 
-              <div className="pt-6 mt-auto">
+              <div className="mt-auto">
                 <Link
                   href={`/experience-details/${item.experience.slug}`}
                   className=""
                 >
                   <button
-                    className="inline-flex items-center gap-2 text-foreground font-medium text-sm sm:text-base hover:gap-3 transition-all duration-300 group-hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary text-start cursor-pointer"
+                    className="inline-flex items-center gap-2 text-foreground font-medium text-sm sm:text-base hover:gap-3 transition-all duration-300 group-hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary text-start cursor-pointer w-full hover:text-blue-500"
                     aria-label={`Explore ${item.experience.title}`}
                   >
-                    <span>Explore {item.experience.title.toLowerCase()}</span>
+                    <span>Read More</span>
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </Link>

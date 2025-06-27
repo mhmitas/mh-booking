@@ -24,10 +24,10 @@ export default function Navbar() {
             <Link href="/">Home</Link>
           </Button>
           <Button variant="ghost" asChild>
-            <Link href="/about">About</Link>
+            <Link href="/category/adventure">Adventure</Link>
           </Button>
           <Button variant="ghost" asChild>
-            <Link href="/services">Services</Link>
+            <Link href="/category/adventure">Stay</Link>
           </Button>
           <Button variant="ghost" asChild>
             <Link href="/assistant">Assistant</Link>
