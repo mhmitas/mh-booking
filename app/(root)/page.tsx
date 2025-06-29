@@ -98,7 +98,7 @@ const Page = async () => {
               the way.
             </p>
             <div className="mt-10">
-              <Button variant={"outline"} size="lg" className="h-12 px-8">
+              <Button variant={"secondary"} size="lg" className="h-12 px-8">
                 Contact Us Today
               </Button>
             </div>
