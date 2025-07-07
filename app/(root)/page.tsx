@@ -86,13 +86,13 @@ const Page = async () => {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-primary py-16">
+      <section className="bg-card py-16">
         <div className="custom-container">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary-foreground">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
               Ready to Begin Your Journey?
             </h2>
-            <p className="mt-4 text-lg text-primary-foreground">
+            <p className="mt-4 text-lg text-muted-foreground">
               Let us help you create the perfect experience tailored to your
               preferences. Our expert team is ready to assist you every step of
               the way.

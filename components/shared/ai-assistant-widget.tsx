@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
+import BotIcon from "./BotIcon";
 
 export default function EnhancedContactButton() {
   const [showBubble, setShowBubble] = useState(true);
@@ -39,9 +40,9 @@ export default function EnhancedContactButton() {
           href="/assistant"
           target="_blank"
           aria-label="Contact us"
-          className="text-3xl bg-white px-2 py-3 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-110 cursor-pointer flex items-center justify-center"
+          className="text-3xl bg-white p-2 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-110 cursor-pointer flex items-center justify-center"
         >
-          🤖
+          <BotIcon size={48} />
         </Link>
 
         <div className="absolute inset-0 rounded-full bg-blue-500 opacity-20 animate-ping pointer-events-none"></div>

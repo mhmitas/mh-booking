@@ -1,5 +1,6 @@
 "use client";
 
+import BotIcon from "@/components/shared/BotIcon";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn, markdownToHtml } from "@/lib/utils";
@@ -65,12 +66,12 @@ const ChatBox = () => {
     }
   };
 
-  // const handleKeyPress = (e: React.KeyboardEvent) => {
-  //   if (e.key === "Enter" && !e.shiftKey) {
-  //     e.preventDefault();
-  //     handleSend();
-  //   }
-  // };
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.ctrlKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-background">
@@ -82,7 +83,7 @@ const ChatBox = () => {
               Blackberry Mountain
             </Link>
             <span className="text-muted-foreground">/</span>
-            <Bot className="w-5 h-5 text-primary" />
+            <BotIcon size={24} />
           </div>
         </div>
       </div>
@@ -94,7 +95,7 @@ const ChatBox = () => {
             <div className="flex items-center justify-center min-h-[60vh]">
               <div className="text-center space-y-6 max-w-md w-full">
                 <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <Bot className="w-8 h-8 text-primary" />
+                  <BotIcon size={48} />
                 </div>
                 <div className="space-y-3">
                   <h2 className="text-xl font-semibold text-foreground">
@@ -131,7 +132,7 @@ const ChatBox = () => {
                   }`}
                 >
                   <div
-                    className={`max-w-[95%] rounded-lg text-[1.15rem] ${
+                    className={`max-w-[95%] rounded-lg !text-base prose dark:prose-invert ${
                       message.role === "human" &&
                       "bg-card text-card-foreground px-4 py-3 sm:max-w-[65%]"
                     }`}
@@ -142,7 +143,7 @@ const ChatBox = () => {
                   </div>
                 </div>
               ))}
-              {isLoading && <BotThinking />}
+              {!isLoading && <BotThinking />}
               <div ref={messagesEndRef} />
             </div>
           )}
@@ -158,7 +159,7 @@ const ChatBox = () => {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Type your message..."
-                className="resize-none min-h-[48px] max-h-32 w-full"
+                className="resize-none min-h-[48px] max-h-32 w-full !text-base font-medium"
                 disabled={isLoading}
               />
               {prompt.length > 0 && (
@@ -171,6 +172,7 @@ const ChatBox = () => {
               onClick={handleSend}
               disabled={!prompt.trim() || isLoading}
               className="h-[48px] w-[48px] flex-shrink-0"
+              onKeyDown={handleKeyPress}
             >
               {isLoading ? (
                 <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -219,10 +221,11 @@ const sampleQueries = [
 
 function BotThinking() {
   return (
-    <div className="flex items-center mt-3 sm:mt-4 animate-in fade-in duration-300 px-1">
-      <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-2 animate-pulse flex-shrink-0" />
+    <div className="flex items-center mt-3 sm:mt-4 fade-in duration-300 px-1 animate-pulse">
+      <BotIcon size={24} className="mr-2" />
       <span className="text-xs sm:text-sm text-muted-foreground">
         Processing your request
+        <span> </span>
         <span className="animate-pulse">
           <span
             className="animate-bounce inline-block"
