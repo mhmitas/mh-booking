@@ -34,6 +34,10 @@ const ChatBox = () => {
     setIsLoading(true);
     const userMessage = prompt.trim();
     setPrompt("");
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "human", content: userMessage },
+    ]);
 
     try {
       const url = threadId
@@ -53,11 +57,7 @@ const ChatBox = () => {
       const data = await response.json();
       if (!threadId) setThreadId(data.threadId);
       const simpleMsg = await convertMessageObjectToSimple(data.response);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: "human", content: userMessage },
-        simpleMsg,
-      ]);
+      setMessages((prevMessages) => [...prevMessages, simpleMsg]);
     } catch (error) {
       console.error("Error sending message:", error);
       throw error;
@@ -76,18 +76,7 @@ const ChatBox = () => {
   return (
     <div className="flex flex-col h-screen bg-background">
       {/* Header - constrain content only */}
-      <div className="bg-background border-b border-border">
-        <div className="max-w-3xl mx-auto px-4 py-3">
-          <div className="flex items-center gap-2">
-            <Link href="/" className="text-lg font-semibold text-foreground">
-              Blackberry Mountain
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <BotIcon size={24} />
-          </div>
-        </div>
-      </div>
-
+      <ChatBoxHeader />
       {/* Messages Container - full width for proper scrollbar */}
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-3xl mx-auto px-4 py-4">
@@ -143,7 +132,7 @@ const ChatBox = () => {
                   </div>
                 </div>
               ))}
-              {!isLoading && <BotThinking />}
+              {isLoading && <BotThinking />}
               <div ref={messagesEndRef} />
             </div>
           )}
@@ -161,6 +150,7 @@ const ChatBox = () => {
                 placeholder="Type your message..."
                 className="resize-none min-h-[48px] max-h-32 w-full !text-base font-medium"
                 disabled={isLoading}
+                onKeyDown={handleKeyPress}
               />
               {prompt.length > 0 && (
                 <div className="absolute right-2 bottom-2 text-muted-foreground bg-background px-1">
@@ -172,7 +162,6 @@ const ChatBox = () => {
               onClick={handleSend}
               disabled={!prompt.trim() || isLoading}
               className="h-[48px] w-[48px] flex-shrink-0"
-              onKeyDown={handleKeyPress}
             >
               {isLoading ? (
                 <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -221,7 +210,7 @@ const sampleQueries = [
 
 function BotThinking() {
   return (
-    <div className="flex items-center mt-3 sm:mt-4 fade-in duration-300 px-1 animate-pulse">
+    <div className="flex items-center mt-3 sm:mt-4 fade-in duration-300 px-1 animate-pulse font-medium">
       <BotIcon size={24} className="mr-2" />
       <span className="text-xs sm:text-sm text-muted-foreground">
         Processing your request
@@ -247,6 +236,22 @@ function BotThinking() {
           </span>
         </span>
       </span>
+    </div>
+  );
+}
+
+function ChatBoxHeader() {
+  return (
+    <div className="bg-background border-b border-border">
+      <div className="max-w-3xl mx-auto px-4 py-3">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="text-lg font-semibold text-foreground">
+            Blackberry Mountain
+          </Link>
+          <span className="text-muted-foreground">/</span>
+          <BotIcon size={24} />
+        </div>
+      </div>
     </div>
   );
 }

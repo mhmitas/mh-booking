@@ -1,10 +1,11 @@
 import React from "react";
-import ChatBox from "./chat-box";
+import ChatbotUI from "./chat-bot";
 
 const page = () => {
   return (
     <div>
-      <ChatBox />
+      {/* <ChatBox /> */}
+      <ChatbotUI />
     </div>
   );
 };

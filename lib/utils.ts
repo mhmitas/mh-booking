@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 type ReviewScores = {
@@ -21,7 +21,7 @@ type ReviewScores = {
  */
 export function calculateAverageRating(scores: ReviewScores): number {
   const values = Object.values(scores).filter(
-    (v): v is number => typeof v === 'number'
+    (v): v is number => typeof v === "number"
   );
 
   if (values.length === 0) return 0;
@@ -33,10 +33,9 @@ export function calculateAverageRating(scores: ReviewScores): number {
   return parseFloat(averageOutOf5.toFixed(2)); // rounded to 2 decimal places
 }
 
-
 // lib/markdown.js
-import { marked } from 'marked';
-import DOMPurify from 'isomorphic-dompurify';
+import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
 
 interface MarkdownToHtmlOptions {
   gfm?: boolean;
@@ -49,7 +48,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
   const options: MarkdownToHtmlOptions = {
     gfm: true,
     breaks: true, // Optional: Convert newlines to <br>
-    tables: true
+    tables: true,
   };
   marked.setOptions(options);
 
@@ -60,4 +59,19 @@ export async function markdownToHtml(markdown: string): Promise<string> {
   const sanitizedHtml: string = DOMPurify.sanitize(html);
 
   return sanitizedHtml;
+}
+
+export async function convertMessageObjectToSimple(msg: any) {
+  // Extract role from id[2], e.g. "HumanMessage" -> "human"
+  const rawRole = msg.id?.[2] || "unknown";
+  const type = rawRole
+    .replace("Message", "")
+    .replace("Chunk", "")
+    .toLowerCase();
+
+  // Extract content safely
+  const content = msg.kwargs?.content || "";
+  const htmlContent = await markdownToHtml(content);
+
+  return { type, content: htmlContent };
 }
