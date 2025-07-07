@@ -64,14 +64,10 @@ export async function markdownToHtml(markdown: string): Promise<string> {
 export async function convertMessageObjectToSimple(msg: any) {
   // Extract role from id[2], e.g. "HumanMessage" -> "human"
   const rawRole = msg.id?.[2] || "unknown";
-  const type = rawRole
-    .replace("Message", "")
-    .replace("Chunk", "")
-    .toLowerCase();
 
   // Extract content safely
   const content = msg.kwargs?.content || "";
   const htmlContent = await markdownToHtml(content);
 
-  return { type, content: htmlContent };
+  return { type: rawRole, content: htmlContent };
 }
